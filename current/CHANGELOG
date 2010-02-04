@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
-2010-01-28
+v0.1.2 2010-02-03
+
+ * Changed CACHEDIR location to panda server directory.
+
+v0.1.1 2010-01-28
 
  * First RPM release

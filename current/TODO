@@ -1,11 +1,16 @@
 TODO
 ----
 
+* Change dump of lastmod  and tspace into ISO datetime in UTC.
+
 * Atomise output file writing, i.e., write to temporary file then
- move.
+  move.
 
 * Add protection against unknown fields in dump request (catch
- KeyErrors).
+  KeyErrors).
+ 
+ * Restucture methods into python module, moving them out of the 
+   main exec script.
 
 
 DONE
