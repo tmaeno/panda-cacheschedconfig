@@ -29,6 +29,7 @@ setup(
     data_files=[
                 # crontab file
                 ('/etc/cron.d', ['cron/cacheschedconfig',
+                                 'cron/cachepilot',
                                        ]
                  ),
                 # Utility wrapper script and main script
