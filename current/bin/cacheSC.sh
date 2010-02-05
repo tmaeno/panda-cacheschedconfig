@@ -24,7 +24,7 @@ else
 fi
 
 # Test if we have any running instances and kill them
-pids=$(ps auxw | grep $CACHESCBIN/cacheSchedConfig.py | awk '{print $2}')
+pids=$(ps auxw | grep $CACHESCBIN/cacheSchedConfig.py | grep -v grep | awk '{print $2}')
 if [ -n "$pids" ]; then
     echo "Found old instances of script running - killing $pids..."
     kill $pids

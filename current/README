@@ -4,6 +4,8 @@ cachescedconfig
 cacheschedconfig dumps schedconfig into a single directory organised
 by queue, in order to make queue data downloads both fast and robust.
 
+The RPM also includes code to build the pilot tarball caches from SVN.
+
 
 Building
 --------
