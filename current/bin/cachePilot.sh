@@ -30,7 +30,7 @@ fi
 
 # Download test builds of the pilot code...
 cd $CACHEPATH
-for pilot in pilotcode-dev-unvalid.tar.gz pilotcode-rc.tar.gz pilotcode-rc1.tar.gz; do
+for pilot in pilotcode-rc.tar.gz; do
     BNLHOST=gridui07
     curl --connect-timeout 20 --max-time 120 -s -S -O http://${BNLHOST}.usatlas.bnl.gov:25880/cache/${pilot}
 done
