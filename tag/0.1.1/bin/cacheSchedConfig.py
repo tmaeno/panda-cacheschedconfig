@@ -6,7 +6,7 @@
 
 # Temporary configuration
 queueDataFields = {
-    'pilot' : ['appdir', 'datadir', 'dq2url', 'copytool', 'copytoolin', 'copysetup', 'copysetupin', 'ddm', 'se', 'sepath', 'seprodpath', 'envsetup', 'envsetupin', 'region', 'copyprefix', 'copyprefixin', 'lfcpath', 'lfcprodpath', 'lfchost', 'sein', 'wntmpdir', 'proxy', 'retry', 'recoverdir', 'space', 'memory', 'cmtconfig', 'status', 'setokens', 'glexec', 'seopt', 'gatekeeper', 'pcache', 'maxinputsize'],
+    'pilot' : ['appdir', 'datadir', 'dq2url', 'copytool', 'copytoolin', 'copysetup', 'copysetupin', 'ddm', 'se', 'sepath', 'seprodpath', 'envsetup', 'envsetupin', 'region', 'copyprefix', 'copyprefixin', 'lfcpath', 'lfcprodpath', 'lfchost', 'sein', 'wntmpdir', 'proxy', 'retry', 'recoverdir', 'space', 'memory', 'cmtconfig', 'status', 'setokens', 'glexec', 'seopt', 'gatekeeper', 'pcache', 'maxinputsize', 'timefloor'],
     'factory' : ['site', 'siteid', 'nickname', 'cloud', 'status', 'jdl', 'localqueue', 'nqueue', 'environ', 'glexec'],
     'all' : None,
 }
