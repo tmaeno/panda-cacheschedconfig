@@ -27,7 +27,7 @@ createtarballs()
     # function to create all pilot tar balls
 
     # tarball for ATLAS
-    FILES=`ls pilot3/ | egrep -v "PilotUtils.py|trivialPilot.py"`
+    FILES=`ls pilot3/ | egrep -v "trivialPilot.py"`
     createtarball pilotcode.tar.gz $FILES
 
     # tarball for OSG
