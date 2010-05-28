@@ -3,7 +3,7 @@
 # Setup prog for cacheschedconfig
 #
 #
-release_version='0.1.4'
+release_version='0.1.6'
 
 import re
 import sys
@@ -35,7 +35,7 @@ setup(
                 # Utility wrapper script and main script
                 ('/opt/cacheschedconfig/bin', ['bin/cacheSC.sh',
                                                'bin/cacheSchedConfig.py',
-                                               'bin/cachePilot.sh',
+                                               'bin/cachePilots.sh',
                                                ]
                  ),
                 ('/opt/cacheschedconfig/etc/sysconfig', ['etc/cacheschedconfig-sysconfig',
