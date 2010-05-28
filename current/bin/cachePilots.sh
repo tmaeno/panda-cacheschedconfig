@@ -54,9 +54,8 @@ if [ ! -d $CACHEPATH ]; then
     fi
 fi
 
-# Need to set HOME=/tmp or svn tries to look at AFS and barfs
 cd $CACHEPATH
-svn co http://www.usatlas.bnl.gov/svn/panda/pilot3/
+svn co http://svnweb.cern.ch/guest/panda/pilot3/
 
 # ---------------------------------------------------------------------- 
 #  tarballs creation
