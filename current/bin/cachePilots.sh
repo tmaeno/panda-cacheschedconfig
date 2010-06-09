@@ -31,7 +31,7 @@ createtarballs()
     createtarball pilotcode.tar.gz $FILES
 
     # tarball for OSG
-    FILES='trivialPilot.py PilotUtils.py myproxyUtils.py'
+    FILES='trivialPilot.py pUtil.py myproxyUtils.py'
     createtarball pilotcodeOSG.tar.gz $FILES
 }
 
