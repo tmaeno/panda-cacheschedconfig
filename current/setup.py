@@ -3,7 +3,7 @@
 # Setup prog for cacheschedconfig
 #
 #
-release_version='0.1.6'
+release_version='0.1.7'
 
 import re
 import sys
