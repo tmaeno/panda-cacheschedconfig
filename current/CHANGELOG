@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+v0.1.10-1 2010-12-08
+ * Add new allowdirectaccess field to the pilot parameters. (Graeme)
+
 v0.1.6-1 2010-05-28
  * Made the buildPilots.sh script the new builder. Deleted old buildPilot.sh script (Graeme)
  * Moved SVN repository for pilot code to CERN (Graeme)
