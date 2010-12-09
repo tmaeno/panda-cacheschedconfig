@@ -6,7 +6,7 @@
 
 # Temporary configuration
 queueDataFields = {
-    'pilot' : ['allowdirectaccess', 'appdir', 'datadir', 'dq2url', 'copytool', 'copytoolin', 'copysetup', 'copysetupin', 'ddm', 'se', 'sepath', 'seprodpath', 'envsetup', 'envsetupin', 'region', 'copyprefix', 'copyprefixin', 'lfcpath', 'lfcprodpath', 'lfchost', 'sein', 'wntmpdir', 'proxy', 'retry', 'recoverdir', 'space', 'memory', 'cmtconfig', 'status', 'setokens', 'glexec', 'seopt', 'gatekeeper', 'pcache', 'maxinputsize', 'timefloor', 'corecount'],
+    'pilot' : ['appdir', 'allowdirectaccess', 'datadir', 'dq2url', 'copytool', 'copytoolin', 'copysetup', 'copysetupin', 'ddm', 'se', 'sepath', 'seprodpath', 'envsetup', 'envsetupin', 'region', 'copyprefix', 'copyprefixin', 'lfcpath', 'lfcprodpath', 'lfchost', 'sein', 'wntmpdir', 'proxy', 'retry', 'recoverdir', 'space', 'memory', 'cmtconfig', 'status', 'setokens', 'glexec', 'seopt', 'gatekeeper', 'pcache', 'maxinputsize', 'timefloor', 'corecount'],
     'factory' : ['site', 'siteid', 'nickname', 'cloud', 'status', 'jdl', 'queue', 'localqueue', 'nqueue', 'environ', 'proxy', 'glexec', 'depthboost', 'idlepilotsupression', 'pilotlimit', 'transferringlimit', 'memory', 'maxtime', 'system'],
     'all' : None,
 }
@@ -70,7 +70,8 @@ class cacheSchedConfig:
             outputFields = queueDataFields[outputSet]
             if outputFields == None:
                 outputFields = queueDict.keys()
-            outputFields.sort()
+            # Suppress this for now - pilot cares deeply that appdir is the first field.
+            #outputFields.sort()
             if format == 'txt':
                 for outputField in outputFields:
                     print >>output, outputField + "=" + str(queueDict[outputField])
@@ -128,6 +129,7 @@ def main():
     for queue in cacher.queueData:
         cacher.dumpSingleQueue(queue)
         cacher.dumpSingleQueue(queue, dest = options.dirname, outputSet='pilot', format='pilot')
+        cacher.dumpSingleQueue(queue, dest = options.dirname, outputSet='pilot', format='json')
         cacher.dumpSingleQueue(queue, dest = options.dirname, outputSet='all', format='json')
         cacher.dumpSingleQueue(queue, dest = options.dirname, outputSet='factory', format='json')
 

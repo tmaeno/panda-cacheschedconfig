@@ -1,6 +1,11 @@
 ChangeLog
 ---------
 
+v0.1.11 2010-12-09
+ * Fix problem in the "pilot" output format. "appdir" needs to come first and so
+   sort() breaks this because "allowdirectaccess" is first, alphabetically.
+ * Produce pilot output in json format as well.
+
 v0.1.10-1 2010-12-08
  * Add new allowdirectaccess field to the pilot parameters. (Graeme)
 
