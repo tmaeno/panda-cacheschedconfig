@@ -22,7 +22,6 @@ def main():
     cacher.getQueueData()
     
     for queue in cacher.queueData:
-        cacher.dumpSingleQueue(queue)
         cacher.dumpSingleQueue(queue, dest = options.dirname, outputSet='pilot', format='pilot')
         cacher.dumpSingleQueue(queue, dest = options.dirname, outputSet='pilot', format='json')
         cacher.dumpSingleQueue(queue, dest = options.dirname, outputSet='all', format='json')
