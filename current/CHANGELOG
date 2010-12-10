@@ -1,6 +1,10 @@
 ChangeLog
 ---------
 
+v1.0.0 2010-12-10
+ * Substantial refactoring of the code to move the main cacheSchedConfig class 
+   into 
+
 v0.1.11 2010-12-09
  * Fix problem in the "pilot" output format. "appdir" needs to come first and so
    sort() breaks this because "allowdirectaccess" is first, alphabetically.
