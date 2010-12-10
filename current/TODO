@@ -9,12 +9,14 @@ TODO
 * Add protection against unknown fields in dump request (catch
   KeyErrors).
  
- * Restucture methods into python module, moving them out of the 
-   main exec script.
-
 
 DONE
 ----
+
+2010-12-10
+
+ * Restucture methods into python module, moving them out of the 
+   main exec script.
 
 2010-01-29
 

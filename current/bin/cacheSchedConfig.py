@@ -5,7 +5,8 @@
 #
 
 
-from cacheschedconfig import cacheSchedConfig
+from cacheschedconfig.CacheSchedConfig import cacheSchedConfig
+from config import panda_config
 from optparse import OptionParser
 
 
@@ -26,6 +27,9 @@ def main():
         cacher.dumpSingleQueue(queue, dest = options.dirname, outputSet='pilot', format='json')
         cacher.dumpSingleQueue(queue, dest = options.dirname, outputSet='all', format='json')
         cacher.dumpSingleQueue(queue, dest = options.dirname, outputSet='factory', format='json')
+        
+    # Big dumper
+    cacher.dumpAllSchedConfig(dest = options.dirname)
 
 
 if __name__ == "__main__":

@@ -7,7 +7,6 @@
 
 # DB Connection
 from cacheschedconfig.OraDBProxy2 import NewDBProxy as DBProxy
-from config import panda_config
 from copy import deepcopy
 from datetime import datetime
 from optparse import OptionParser
@@ -68,11 +67,12 @@ class cacheSchedConfig:
         try:
             file = dest + "/" + queueDict['nickname'] + "." + outputSet + "." + format
             output = open(file, "w")
-            outputFields = queueDataFields[outputSet]
+            outputFields = self.queueDataFields[outputSet]
             if outputFields == None:
                 outputFields = queueDict.keys()
-            # Suppress this for now - pilot cares deeply that appdir is the first field.
-            #outputFields.sort()
+            if format != 'pilot':
+                # Pilot cares deeply that appdir is the first field :-(
+                outputFields.sort()
             if format == 'txt':
                 for outputField in outputFields:
                     print >>output, outputField + "=" + str(queueDict[outputField])
@@ -114,14 +114,18 @@ class cacheSchedConfig:
                 structDict[timeKey] = calendar.timegm(structDict[timeKey].utctimetuple())
         return structDict
 
-    def dumpAllSchedConfig(self, queueArray, destFile='/tmp/schedconfig.all.json'):
+
+    def dumpAllSchedConfig(self, queueArray = None, dest='/tmp'):
         '''Dumps all of schedconfig into a single json file - allows clients to retrieve a
         machine readable version of schedconfig efficiently'''
+        file = dest + "/schedconfig.all.json"
+        if queueArray == None:
+            queueArray = self.queueData
         output = open(file, "w")
         dumpMe = {}
         for queueDict in queueArray:
-            dumpMe[queueDict[nickname]] = {}
+            dumpMe[queueDict['nickname']] = {}
             for k,v in queueDict.iteritems():
-                dumpMe[queueDict[nickname]][k] = v
-        print >>output, json.dumps(self.queueDictPythonise(dumpMe), sort_keys=True, indent=4)
-
+                dumpMe[queueDict['nickname']][k] = v
+            dumpMe[queueDict['nickname']] = self.queueDictPythonise(dumpMe[queueDict['nickname']])
+        print >>output, json.dumps(dumpMe, sort_keys=True, indent=4)
