@@ -1,9 +1,6 @@
-#! /usr/bin/env python
 #
 # Dump schedconfig on a per-queue basis into cache files
 #
-#
-
 
 # DB Connection
 from cacheschedconfig.OraDBProxy2 import NewDBProxy as DBProxy
@@ -33,6 +30,8 @@ class cacheSchedConfig:
         self.queueData = None
         # Define this here, but could be more flexible...
         self.queueDataFields = {
+                                # Note that json dumps always use sort_keys=True; for pilot format
+                                # the order defined here is respected
                                 'pilot' : ['appdir', 'allowdirectaccess', 'datadir', 'dq2url', 'copytool', 'copytoolin', 'copysetup', 'copysetupin', 'ddm', 'se', 'sepath', 'seprodpath', 'envsetup', 'envsetupin', 'region', 'copyprefix', 'copyprefixin', 'lfcpath', 'lfcprodpath', 'lfchost', 'sein', 'wntmpdir', 'proxy', 'retry', 'recoverdir', 'space', 'memory', 'cmtconfig', 'status', 'setokens', 'glexec', 'seopt', 'gatekeeper', 'pcache', 'maxinputsize', 'timefloor', 'corecount'],
                                 'factory' : ['site', 'siteid', 'nickname', 'cloud', 'status', 'jdl', 'queue', 'localqueue', 'nqueue', 'environ', 'proxy', 'glexec', 'depthboost', 'idlepilotsupression', 'pilotlimit', 'transferringlimit', 'memory', 'maxtime', 'system'],
                                 # None is magic here and really means "all"
@@ -70,9 +69,6 @@ class cacheSchedConfig:
             outputFields = self.queueDataFields[outputSet]
             if outputFields == None:
                 outputFields = queueDict.keys()
-            if format != 'pilot':
-                # Pilot cares deeply that appdir is the first field :-(
-                outputFields.sort()
             if format == 'txt':
                 for outputField in outputFields:
                     print >>output, outputField + "=" + str(queueDict[outputField])
