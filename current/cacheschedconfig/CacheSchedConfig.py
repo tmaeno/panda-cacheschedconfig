@@ -72,8 +72,6 @@ class cacheSchedConfig:
         
     def getCloudStatus(self):
         sql = 'SELECT name, status from ATLAS_PANDAMETA.CLOUDCONFIG'
-        print sql
-        print self.proxyS
         r = self.proxyS.querySQL(sql)
         self.cloudStatus = dict()
         for row in r:
