@@ -1,22 +1,25 @@
 from taskbuffer.OraDBProxy import DBProxy
+import sys
 
 class NewDBProxy(DBProxy):
     '''
     Class extending OraDBProxy to add some column name mapping utilites
     '''
 
-    def queryColumnSQL(self, sql, varMap = None, arraySize = 10, lowerCase = True):
-        comment = ' /* cacheSchedConfig Connection test */'
+    def queryColumnSQL(self, sql, varMap = None, arraySize = 100, lowerCase = True):
+        comment = ' /* cacheSchedConfig column query */'
         if self.conn == None:
             return None, None
         try:
             self.conn.begin()
             self.cur.arraysize = arraySize
+            print >>sys.stderr, "querySQL : %s, %s, %s " % (sql, varMap, comment)
             if varMap == None:
                 ret = self.cur.execute(sql+comment)
             else:
                 ret = self.cur.execute(sql+comment,varMap)
             res = self.cur.fetchall()
+            self.conn.commit()
             # Iterate over the result arrays
             #print self.cur.description
             columnNames = []
@@ -27,12 +30,26 @@ class NewDBProxy(DBProxy):
                     columnNames.append(descriptionTuple[0])
             return columnNames, res
         except:
+            raise
+
+    def querySQL(self, sql, varMap = None, arraySize=100):
+        comment = ' /* cacheSchedConfig standard query */'
+        if self.conn == None:
+            return None
+        try:
+            self.conn.begin()
+            self.cur.arraysize = arraySize
+            print >>sys.stderr, "querySQL : %s, %s, %s " % (sql, varMap, comment)            
+            if varMap == None:
+                ret = self.cur.execute(sql+comment)
+            else:
+                ret = self.cur.execute(sql+comment,varMap)
+            res = self.cur.fetchall()
+            self.conn.commit()
+            return res
+        except:
             # roll back
-            self._rollback(self.useOtherError)
-            type, value, traceBack = sys.exc_info()
-            _logger.error("querySQLS : %s %s" % (sql,str(varMap)))
-            _logger.error("querySQLS : %s %s" % (type,value))
-            return None, None
+            raise
 
     def mapRowsToDictionary(self, columnNames, rows):
         resDictArray = []

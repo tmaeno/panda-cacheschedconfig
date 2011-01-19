@@ -19,7 +19,7 @@ def main():
 
     cacher = cacheSchedConfig()    
     cacher.init(panda_config.dbhost, panda_config.dbpasswd, panda_config.dbuser, panda_config.dbname)
-    cacher.getQueueData()
+    cacher.getStucturedQueueStatus()
     
     for queue in cacher.queueData:
         cacher.dumpSingleQueue(queue, dest = options.dirname, outputSet='pilot', format='pilot')

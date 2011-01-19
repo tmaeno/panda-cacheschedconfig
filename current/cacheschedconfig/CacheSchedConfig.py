@@ -9,6 +9,7 @@ from datetime import datetime
 from optparse import OptionParser
 import calendar
 import sys
+import os
 
 try:
     import json as json
@@ -28,6 +29,7 @@ class cacheSchedConfig:
     def __init__(self):
         self.proxyS = None
         self.queueData = None
+        self.cloudStatus = None
         # Define this here, but could be more flexible...
         self.queueDataFields = {
                                 # Note that json dumps always use sort_keys=True; for pilot format
@@ -44,6 +46,12 @@ class cacheSchedConfig:
             self.proxyS = DBProxy()
             self.proxyS.connect(dbhost, dbpasswd, dbuser, dbname)
 
+            
+    def getStucturedQueueStatus(self):
+        self.getQueueData()
+        self.getCloudStatus()
+        self.maskQueuesByCloud()
+        
 
     def getQueueData(self, site = None, queue = None):
         # Dump schedconfig in a single query (it's not very big)
@@ -60,11 +68,32 @@ class cacheSchedConfig:
         else:
             c, r = self.proxyS.queryColumnSQL(sql)
         self.queueData = self.proxyS.mapRowsToDictionary(c, r)
+        
+        
+    def getCloudStatus(self):
+        sql = 'SELECT name, status from ATLAS_PANDAMETA.CLOUDCONFIG'
+        print sql
+        print self.proxyS
+        r = self.proxyS.querySQL(sql)
+        self.cloudStatus = dict()
+        for row in r:
+            self.cloudStatus[row[0]] = row[1]
+
+            
+    def maskQueuesByCloud(self):
+        '''Force queue status to offline if the cloud is offline'''
+        for queue in self.queueData:
+            try:
+                if self.cloudStatus[queue['cloud']] == 'offline':
+                    queue['status'] = 'offline'
+                    print >>sys.stderr, 'Queue %s forced offline (cloud = %s is offline)' % (queue['nickname'], queue['cloud'])
+            except KeyError:
+                print >>sys.stderr, 'No valid cloud status for queue %s (cloud = %s)' % (queue['nickname'], queue['cloud'])
 
 
     def dumpSingleQueue(self, queueDict, dest = '/tmp', outputSet = 'all', format = 'txt'):
         try:
-            file = dest + "/" + queueDict['nickname'] + "." + outputSet + "." + format
+            file = os.path.join(dest, queueDict['nickname'] + "." + outputSet + "." + format)
             output = open(file, "w")
             outputFields = self.queueDataFields[outputSet]
             if outputFields == None:
@@ -107,14 +136,14 @@ class cacheSchedConfig:
         # TODO - Change this into Ricardo's ISO dateTime in UTC?
         for timeKey in 'lastmod', 'tspace':
             if timeKey in structDict:
-                structDict[timeKey] = calendar.timegm(structDict[timeKey].utctimetuple())
+                structDict[timeKey] = structDict[timeKey].isoformat()
         return structDict
 
 
     def dumpAllSchedConfig(self, queueArray = None, dest='/tmp'):
         '''Dumps all of schedconfig into a single json file - allows clients to retrieve a
         machine readable version of schedconfig efficiently'''
-        file = dest + "/schedconfig.all.json"
+        file = os.path.join(dest, "schedconfig.all.json")
         if queueArray == None:
             queueArray = self.queueData
         output = open(file, "w")

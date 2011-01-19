@@ -1,9 +1,15 @@
 ChangeLog
 ---------
 
+v1.1.0 2011-01-18
+ * Use os.path.join instead of string concatenation.
+ * Query cloud status and set all queues offline if the cloud is offline.
+ * Changed dump of lastmod  and tspace into ISO datetime in UTC.
+ * Corrected database query code (added missing commit()).
+
 v1.0.0 2010-12-10
  * Substantial refactoring of the code to move the main cacheSchedConfig class 
-   into 
+   into separate class.
 
 v0.1.11 2010-12-09
  * Fix problem in the "pilot" output format. "appdir" needs to come first and so
