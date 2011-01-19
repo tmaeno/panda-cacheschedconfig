@@ -1,11 +1,13 @@
 TODO
 ----
 
-* Atomise output file writing, i.e., write to temporary file then
-  move.
+ * Atomise output file writing, i.e., write to temporary file then
+   move.
 
-* Add protection against unknown fields in dump request (catch
-  KeyErrors).
+ * Add protection against unknown fields in dump request (catch
+   KeyErrors).
+  
+ * Proper logging!
  
 
 DONE
