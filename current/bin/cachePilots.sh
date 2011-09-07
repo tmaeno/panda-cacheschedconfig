@@ -26,12 +26,14 @@ createwrappertarball()
 {
     # function to create the new-style wrapper tarball
     # the content of the tarball is everything included in 
-    # directory wrappers/
-
-    WRAPPERTARBALL=wrapper.tar.gz
+    # directory wrappers/ except 
+    #           - hidden directories .svn
+    #           - wrapper.sh
 
     cd wrappers
-    tar -czf ../$WRAPPERTARBALL --recursion *
+    WRAPPERTARBALL=wrapper.tar.gz
+    FILES=`find . -type f | grep -v svn | grep -v wrapper.sh`
+    tar -czf ../$WRAPPERTARBALL $FILES
     cd ..
 }
 
