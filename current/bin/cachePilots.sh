@@ -32,7 +32,10 @@ createtarballs()
 
     # tarball for OSG
     FILES='trivialPilot.py pUtil.py myproxyUtils.py'
+    # for AutoPilot with old-style wrappers
     createtarball pilotcodeOSG.tar.gz $FILES
+    # for new-style wrappers
+    createtarball trivialPilot.tar.gz $FILES
 }
 
 # ---------------------------------------------------------------------- 
