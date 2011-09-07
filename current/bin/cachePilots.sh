@@ -22,6 +22,19 @@ createtarball()
     cd ..
 }
 
+createwrappertarball()
+{
+    # function to create the new-style wrapper tarball
+    # the content of the tarball is everything included in 
+    # directory wrappers/
+
+    WRAPPERTARBALL=wrapper.tar.gz
+
+    cd wrappers
+    tar -czf ../$WRAPPERTARBALL --recursion *
+    cd ..
+}
+
 createtarballs()
 {
     # function to create all pilot tar balls
@@ -36,6 +49,9 @@ createtarballs()
     createtarball pilotcodeOSG.tar.gz $FILES
     # for new-style wrappers
     createtarball trivialPilot.tar.gz $FILES
+
+    # new-style wrapper tarball
+    createwrappertarball
 }
 
 # ---------------------------------------------------------------------- 
@@ -59,6 +75,7 @@ fi
 
 cd $CACHEPATH
 svn co http://svnweb.cern.ch/guest/panda/pilot3/
+svn co http://svnweb.cern.ch/guest/panda/panda-wrappers/current/ wrappers
 
 # ---------------------------------------------------------------------- 
 #  tarballs creation
