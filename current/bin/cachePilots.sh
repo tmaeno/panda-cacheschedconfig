@@ -22,21 +22,6 @@ createtarball()
     cd ..
 }
 
-createwrappertarball()
-{
-    # function to create the new-style wrapper tarball
-    # the content of the tarball is everything included in 
-    # directory wrappers/ except 
-    #           - hidden directories .svn
-    #           - wrapper.sh
-
-    cd wrappers
-    WRAPPERTARBALL=wrapper.tar.gz
-    FILES=`find . -type f | grep -v svn | grep -v wrapper.sh`
-    tar -czf ../$WRAPPERTARBALL $FILES
-    cd ..
-}
-
 createtarballs()
 {
     # function to create all pilot tar balls
@@ -47,13 +32,7 @@ createtarballs()
 
     # tarball for OSG
     FILES='trivialPilot.py pUtil.py myproxyUtils.py'
-    # for AutoPilot with old-style wrappers
     createtarball pilotcodeOSG.tar.gz $FILES
-    # for new-style wrappers
-    createtarball trivialPilot.tar.gz $FILES
-
-    # new-style wrapper tarball
-    createwrappertarball
 }
 
 # ---------------------------------------------------------------------- 
@@ -77,7 +56,6 @@ fi
 
 cd $CACHEPATH
 svn co http://svnweb.cern.ch/guest/panda/pilot3/
-svn co http://svnweb.cern.ch/guest/panda/panda-wrappers/current/ wrappers
 
 # ---------------------------------------------------------------------- 
 #  tarballs creation

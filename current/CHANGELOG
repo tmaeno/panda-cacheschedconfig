@@ -1,6 +1,13 @@
 ChangeLog
 ---------
 
+v1.2.2 2012-02-07 Graeme Stewart <graeme.andrew.stewart@cern.ch>
+ * Add lfcregister as a dump field for pilot
+ * Revert change in cachePilots.sh from Jose (r8959, never deployed in production) 
+ 
+v1.2.0 2011-03-14 Graeme Stewart <graeme.andrew.stewart@cern.ch>
+ * Add cloud field to fields for pilot
+
 v1.1.0 2011-01-18
  * Use os.path.join instead of string concatenation.
  * Query cloud status and set all queues offline if the cloud is offline.
