@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+v1.2.3 2012-04-19 Peter Love <p.love@lancaster.ac.uk>
+ * added fairsharepolicy to factory json
+
 v1.2.2 2012-02-07 Graeme Stewart <graeme.andrew.stewart@cern.ch>
  * Add lfcregister as a dump field for pilot
  * Revert change in cachePilots.sh from Jose (r8959, never deployed in production) 
