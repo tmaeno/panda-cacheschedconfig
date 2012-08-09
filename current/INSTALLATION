@@ -8,8 +8,14 @@ Installation procedure at CERN
 -------------------------------
 
 1. Build the RPM.
+   - Usually you do this on the panda testbed machine. The
+     main issue here is to make sure you use the same version 
+     of python as the panda server.
+   - You should be able to build with your normal AFS account,
+     but you do need to copy the code locally (linking issues).
 
-2. Install the RPM on the panda testbed machine (currently voatlas48).
+2. Install the RPM on the panda testbed machine (currently voatlas220).
+   - Done as root ('sudo -s').
 
 3. Check it works.
    - Check the schedconfig and pilot tarballs are fresh and contain the
