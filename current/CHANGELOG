@@ -1,6 +1,12 @@
 ChangeLog
 ---------
 
+v1.3.2 2013-07-08
+ * fixed sysconfig for SLC6
+
+v1.3.1 ?
+ * added maxwdir?
+
 v1.3.0 2012-08-09 Graeme Stewart <graeme.andrew.stewart@cern.ch>
  * Add 'faxredirector', 'allowfax', 'maxtime' to pilot fields.
  * Add more information on how this works to README and INSTALLATION.

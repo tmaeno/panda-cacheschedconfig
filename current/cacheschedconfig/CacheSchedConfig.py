@@ -39,10 +39,10 @@ class cacheSchedConfig:
                                            'region', 'copyprefix', 'copyprefixin', 'lfcpath', 'lfcprodpath', 'lfchost', 'lfcregister', 
                                            'sein', 'wntmpdir', 'proxy', 'retry', 'recoverdir', 'space', 'memory', 'cmtconfig', 'status', 
                                            'setokens', 'glexec', 'seopt', 'gatekeeper', 'pcache', 'maxinputsize', 'timefloor', 
-                                           'corecount', 'faxredirector', 'allowfax', 'maxtime'],
+                                           'corecount', 'faxredirector', 'allowfax', 'maxtime', 'maxwdir',],
                                 'factory' : ['site', 'siteid', 'nickname', 'cloud', 'status', 'jdl', 'queue', 'localqueue', 'nqueue', 
                                              'environ', 'proxy', 'glexec', 'depthboost', 'idlepilotsupression', 'pilotlimit', 'transferringlimit', 
-                                             'memory', 'maxtime', 'system', 'fairsharepolicy'],
+                                             'memory', 'maxtime', 'system', 'fairsharepolicy',],
                                 # None is magic here and really means "all"
                                 'all' : None,
                                 }

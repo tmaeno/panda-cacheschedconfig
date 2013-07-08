@@ -3,8 +3,5 @@ CACHESCBIN=/opt/cacheschedconfig/bin
 SVRPATH=/data/atlpan/srv
 CACHEPATH=$SVRPATH/var/cache/pandaserver/schedconfig
 
-# We need python 2.5
-alias python=python2.5
-
 # Add ourselves to the path
 PATH=$CACHESCBIN:$PATH
