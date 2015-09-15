@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+v1.3.3 2015-09-15
+ * added autosetuppre and autosetuppost
+
 v1.3.2 2013-07-08
  * fixed sysconfig for SLC6
 

@@ -42,7 +42,7 @@ class cacheSchedConfig:
                                            'corecount', 'faxredirector', 'allowfax', 'maxtime', 'maxwdir',],
                                 'factory' : ['site', 'siteid', 'nickname', 'cloud', 'status', 'jdl', 'queue', 'localqueue', 'nqueue', 
                                              'environ', 'proxy', 'glexec', 'depthboost', 'idlepilotsupression', 'pilotlimit', 'transferringlimit', 
-                                             'memory', 'maxtime', 'system', 'fairsharepolicy',],
+                                             'memory', 'maxtime', 'system', 'fairsharepolicy','autosetup_pre','autosetup_post'],
                                 # None is magic here and really means "all"
                                 'all' : None,
                                 }

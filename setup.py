@@ -3,7 +3,7 @@
 # Setup prog for cacheschedconfig
 #
 #
-release_version='1.3.2'
+release_version='1.3.3'
 
 import re
 import sys
@@ -21,9 +21,9 @@ setup(
     long_description='''This package contains cacheschedconfig''',
     license='GPL',
     author='Panda Team',
-    author_email='hn-atlas-panda-pathena@cern.ch',
-    maintainer='Graeme Stewart',
-    maintainer_email='graeme.andrew.stewart@cern.ch',
+    author_email='atlas-adc-panda-support@cern.ch',
+    maintainer='Panda Team',
+    maintainer_email='atlas-adc-panda-support@cern.ch',
     url='https://twiki.cern.ch/twiki/bin/view/Atlas/PanDA',
     packages=['cacheschedconfig'],
     data_files=[
