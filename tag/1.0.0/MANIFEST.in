@@ -1,4 +1,0 @@
-include CHANGELOG INSTALLATION LICENSE README TODO
-include cron/*
-include bin/*
-include etc/*

@@ -1,1 +1,0 @@
-*/5 * * * * atlpan /opt/cacheschedconfig/bin/cacheSC.sh &> /tmp/cacheSC.out

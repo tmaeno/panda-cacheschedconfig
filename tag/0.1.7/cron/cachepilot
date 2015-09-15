@@ -1,1 +1,0 @@
-21 * * * * atlpan /opt/cacheschedconfig/bin/cachePilots.sh &> /tmp/cachePilots.out
