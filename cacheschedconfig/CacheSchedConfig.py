@@ -10,6 +10,7 @@ from optparse import OptionParser
 import calendar
 import sys
 import os
+import shutil
 
 try:
     import json as json
@@ -119,9 +120,17 @@ class cacheSchedConfig:
                 for outputField in outputFields:
                     dumpMe[outputField] = queueDict[outputField]
                 print >>output, json.dumps(self.queueDictPythonise(dumpMe), sort_keys=True, indent=4)
+
+            # a copy of the file, when makes sense, with filename based on siteid
+            newfile = os.path.join(dest, queueDict['siteid'] + "." + outputSet + "." + format)
+            if newfile != file:
+                shutil.copy(file, newfile)
+
         except:
             raise
         output.close()
+
+        
 
 
     def dumpQueues(self, queueArray, dest = '/tmp', outputSet = 'all', format = 'txt'):
