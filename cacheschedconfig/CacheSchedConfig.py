@@ -120,6 +120,7 @@ class cacheSchedConfig:
                 for outputField in outputFields:
                     dumpMe[outputField] = queueDict[outputField]
                 print >>output, json.dumps(self.queueDictPythonise(dumpMe), sort_keys=True, indent=4)
+            output.close()
 
             # a copy of the file, when makes sense, with filename based on siteid
             newfile = os.path.join(dest, queueDict['siteid'] + "." + outputSet + "." + format)
@@ -128,7 +129,6 @@ class cacheSchedConfig:
 
         except:
             raise
-        output.close()
 
         
 
