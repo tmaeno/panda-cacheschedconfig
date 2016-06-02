@@ -1,7 +1,6 @@
 # Define cache areas
 CACHESCBIN=/opt/cacheschedconfig/bin
-SVRPATH=/data/atlpan/srv
-CACHEPATH=$SVRPATH/var/cache/pandaserver/schedconfig
+CACHEPATH=/var/cache/pandaserver/schedconfig
 
 # Add ourselves to the path
 PATH=$CACHESCBIN:$PATH
