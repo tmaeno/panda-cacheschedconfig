@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+v1.3.6 2016-06-02
+ * removed /data/atlpan/srv prefix
+
 v1.3.3 2015-09-15
  * added autosetuppre and autosetuppost
 
