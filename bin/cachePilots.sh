@@ -1,13 +1,13 @@
 #! /bin/bash
 #
-# Build pilot tarball from SVN. Download RC pilot code from BNL
+# Build pilot tarball from cvmfs. Download RC pilot code from BNL
 #
 
-# ---------------------------------------------------------------------- 
+# ----------------------------------------------------------------------
 #  FUNCTIONS
-# ---------------------------------------------------------------------- 
+# ----------------------------------------------------------------------
 
-createtarball()
+createtarball_cvmfs()
 {
     # function to create each pilot tar ball
     # first argument is the name of the tarball
@@ -17,26 +17,38 @@ createtarball()
     shift
     FILES=$@
 
-    cd pilot3
+    cd $CACHEPATH/latest_cache
     tar -czf ../$TARBALL $FILES
-    cd ..
+    cd $CACHEPATH
 }
 
-createtarballs()
+createtarballs_cvmfs()
 {
     # function to create all pilot tar balls
 
     # tarball for ATLAS
-    FILES=`ls pilot3/ | egrep -v "trivialPilot.py"`
-    createtarball pilotcode.tar.gz $FILES
+    FILES=`ls $CACHEPATH/latest_cache | egrep -v "trivialPilot.py"`
+    createtarball_cvmfs pilotcode.tar.gz $FILES
 
     # tarball for OSG
     FILES='trivialPilot.py pUtil.py myproxyUtils.py'
-    createtarball pilotcodeOSG.tar.gz $FILES
+    createtarball_cvmfs pilotcodeOSG.tar.gz $FILES
 }
 
-# ---------------------------------------------------------------------- 
+getfiles_cvmfs()
+{
+    # function to get the files from git
 
+    # delete cache directory
+    if [ -d $CACHEPATH/latest_cache ]; then
+        rm -rf $CACHEPATH/latest_cache
+    fi
+
+    # get latest zip from github and unzip it
+    cp -r /cvmfs/atlas.cern.ch/repo/sw/PandaPilot/pilot/latest $CACHEPATH/latest_cache
+}
+
+# ----------------------------------------------------------------------
 
 if [ -f /opt/cacheschedconfig/etc/sysconfig/cachepilot-sysconfig ]; then
     source /opt/cacheschedconfig/etc/sysconfig/cachepilot-sysconfig
@@ -55,19 +67,21 @@ if [ ! -d $CACHEPATH ]; then
 fi
 
 cd $CACHEPATH
-svn co http://svnweb.cern.ch/guest/panda/pilot3/
 
-# ---------------------------------------------------------------------- 
-#  tarballs creation
-# ---------------------------------------------------------------------- 
 
 if [ $? == "0" ]; then
-    createtarballs
+    getfiles_cvmfs
 else
-    echo Subversion checkout gave an error
+    echo Could not copy the pilot code from cvmfsd
 fi
 
-# ---------------------------------------------------------------------- 
+if [ $? == "0" ]; then
+    createtarballs_cvmfs
+else
+    echo Could not create the tarballs
+fi
+
+# ----------------------------------------------------------------------
 
 # Download test builds of the pilot code...
 cd $CACHEPATH
