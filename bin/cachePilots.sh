@@ -18,7 +18,8 @@ createtarball_cvmfs()
     FILES=$@
 
     cd $CACHEPATH/latest_cache
-    tar -czf ../$TARBALL $FILES
+    tar -czf $TARBALL_TMP $FILES
+    cp $TARBALL ../$TARBALL
     cd $CACHEPATH
 }
 
@@ -28,7 +29,7 @@ createtarballs_cvmfs()
 
     # tarball for ATLAS
     FILES=`ls $CACHEPATH/latest_cache | egrep -v "trivialPilot.py"`
-    createtarball_cvmfs pilotcode.tar.gz $FILES
+    createtarball_cvmfs pilotcode-PICARD.tar.gz $FILES
 
     # tarball for OSG
     FILES='trivialPilot.py pUtil.py myproxyUtils.py'
