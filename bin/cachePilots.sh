@@ -14,12 +14,13 @@ createtarball_cvmfs()
     # the rest of arguments is the list of files to include in the tarball
 
     TARBALL=$1
+    TARBALL_TMP=$1_tmp
     shift
     FILES=$@
 
     cd $CACHEPATH/latest_cache
-    tar -czf $TARBALL_TMP $FILES
-    cp $TARBALL ../$TARBALL
+    tar -czf ../$TARBALL_TMP $FILES
+    mv ../$TARBALL_TMP ../$TARBALL
     cd $CACHEPATH
 }
 
