@@ -29,7 +29,7 @@ createtarballs_cvmfs()
     # function to create all pilot tar balls
 
     # tarball for ATLAS
-    FILES=`ls $CACHEPATH/latest_cache | egrep -v "trivialPilot.py"`
+    FILES=`ls $CACHEPATH/latest_cache`
     createtarball_cvmfs pilotcode-PICARD.tar.gz $FILES
 }
 
