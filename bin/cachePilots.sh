@@ -1,6 +1,6 @@
 #! /bin/bash
 #
-# Build pilot tarball from cvmfs. Download RC pilot code from BNL
+# Build pilot tarball from cvmfs. Download RC pilot code from Paul's gmsb www area
 #
 
 # ----------------------------------------------------------------------
