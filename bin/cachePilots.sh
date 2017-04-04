@@ -22,10 +22,6 @@ if [ -f /opt/cacheschedconfig/etc/sysconfig/cachepilot-sysconfig ]; then
     source /opt/cacheschedconfig/etc/sysconfig/cachepilot-sysconfig
 fi
 
-#if [ -f $HOME/cachepilot-sysconfig ]; then
-#    source $HOME/cachepilot-sysconfig
-#fi
-
 # Don't all fire at the same time
 if [ "$1" != "--nowait" ]; then
     sleep $(($RANDOM%60))
