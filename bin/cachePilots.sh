@@ -1,53 +1,19 @@
 #! /bin/bash
 #
-# Build pilot tarball from cvmfs. Download RC pilot code from BNL
+# Build pilot tarball from cvmfs. Download RC pilot code from Paul's gmsb www area
 #
+# Authors: Fernando Barreiro Megino, Paul Nilsson
 
 # ----------------------------------------------------------------------
 #  FUNCTIONS
 # ----------------------------------------------------------------------
 
-createtarball_cvmfs()
+gettarball_cvmfs()
 {
-    # function to create each pilot tar ball
-    # first argument is the name of the tarball
-    # the rest of arguments is the list of files to include in the tarball
+    # function to get the pilot tarball from cvmfs
 
-    TARBALL=$1
-    TARBALL_TMP=$1_tmp
-    shift
-    FILES=$@
-
-    cd $CACHEPATH/latest_cache
-    tar -czf ../$TARBALL_TMP $FILES
-    mv ../$TARBALL_TMP ../$TARBALL
-    cd $CACHEPATH
-}
-
-createtarballs_cvmfs()
-{
-    # function to create all pilot tar balls
-
-    # tarball for ATLAS
-    FILES=`ls $CACHEPATH/latest_cache | egrep -v "trivialPilot.py"`
-    createtarball_cvmfs pilotcode-PICARD.tar.gz $FILES
-
-    # tarball for OSG
-    FILES='trivialPilot.py pUtil.py myproxyUtils.py'
-    createtarball_cvmfs pilotcodeOSG.tar.gz $FILES
-}
-
-getfiles_cvmfs()
-{
-    # function to get the files from git
-
-    # delete cache directory
-    if [ -d $CACHEPATH/latest_cache ]; then
-        rm -rf $CACHEPATH/latest_cache
-    fi
-
-    # get latest zip from github and unzip it
-    cp -r /cvmfs/atlas.cern.ch/repo/sw/PandaPilot/pilot/latest $CACHEPATH/latest_cache
+    # copy the latest tarball
+    cp /cvmfs/atlas.cern.ch/repo/sw/PandaPilot/tar/pilotcode-PICARD.tar.gz $CACHEPATH/.
 }
 
 # ----------------------------------------------------------------------
@@ -70,17 +36,12 @@ fi
 
 cd $CACHEPATH
 
-
 if [ $? == "0" ]; then
-    getfiles_cvmfs
+    # Copying files from cvmfs
+    echo Copying tarball form cvmfs
+    gettarball_cvmfs
 else
-    echo Could not copy the pilot code from cvmfsd
-fi
-
-if [ $? == "0" ]; then
-    createtarballs_cvmfs
-else
-    echo Could not create the tarballs
+    echo Could not copy the pilot tarball from cvmfs
 fi
 
 # ----------------------------------------------------------------------
