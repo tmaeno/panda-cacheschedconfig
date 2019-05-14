@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+v1.3.7 2019-05-14
+ * updated pilot tarball creation
+
 v1.3.6 2016-06-02
  * removed /data/atlpan/srv prefix
 
