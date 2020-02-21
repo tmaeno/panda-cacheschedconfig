@@ -5,22 +5,11 @@
 # DB Connection
 from cacheschedconfig.OraDBProxy2 import NewDBProxy as DBProxy
 from copy import deepcopy
-from datetime import datetime
-from optparse import OptionParser
-import calendar
+
 import sys
 import os
 import shutil
-
-try:
-    import json as json
-except ImportError, err:
-    print >>sys.stderr, 'No json module found: %s. Fallback to simplejson.' % err
-    try:
-        import simplejson as json
-    except ImportError, err:
-        print >>sys.stderr, 'No simplejson module found: %s' % err
-        sys.exit(1)
+import json
 
 
 class cacheSchedConfig:
@@ -106,7 +95,7 @@ class cacheSchedConfig:
                 outputFields = queueDict.keys()
             if format == 'txt':
                 for outputField in outputFields:
-                    print >>output, outputField + "=" + str(queueDict[outputField])
+                    output.write(outputField + "=" + str(queueDict[outputField]))
             if format == 'pilot':
                 outputStr = ''
                 for outputField in outputFields:
@@ -114,12 +103,12 @@ class cacheSchedConfig:
                         outputStr += outputField + "=" + str(queueDict[outputField]) + "|"
                     else:
                         outputStr += outputField + "=|"
-                print >>output, outputStr[:-1]
+                output.write(outputStr[:-1])
             if format == 'json':
                 dumpMe = {}
                 for outputField in outputFields:
                     dumpMe[outputField] = queueDict[outputField]
-                print >>output, json.dumps(self.queueDictPythonise(dumpMe), sort_keys=True, indent=4)
+                json.dump(self.queueDictPythonise(dumpMe), output, sort_keys=True, indent=4)
             output.close()
 
             # a copy of the file, when makes sense, with filename based on siteid
@@ -127,7 +116,7 @@ class cacheSchedConfig:
             if newfile != file:
                 shutil.copy(file, newfile)
 
-        except:
+        except Exception:
             raise
 
         
@@ -164,7 +153,8 @@ class cacheSchedConfig:
         dumpMe = {}
         for queueDict in queueArray:
             dumpMe[queueDict['nickname']] = {}
-            for k,v in queueDict.iteritems():
+            for k in queueDict:
+                v = queueDict[k]
                 dumpMe[queueDict['nickname']][k] = v
             dumpMe[queueDict['nickname']] = self.queueDictPythonise(dumpMe[queueDict['nickname']])
-        print >>output, json.dumps(dumpMe, sort_keys=True, indent=4)
+        json.dump(dumpMe, output, sort_keys=True, indent=4)

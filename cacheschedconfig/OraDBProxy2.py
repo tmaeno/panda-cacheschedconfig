@@ -13,7 +13,7 @@ class NewDBProxy(DBProxy):
         try:
             self.conn.begin()
             self.cur.arraysize = arraySize
-            print >>sys.stderr, "querySQL : %s, %s, %s " % (sql, varMap, comment)
+            sys.stderr.write("querySQL : %s, %s, %s \n" % (sql, varMap, comment))
             if varMap == None:
                 ret = self.cur.execute(sql+comment)
             else:
@@ -39,7 +39,7 @@ class NewDBProxy(DBProxy):
         try:
             self.conn.begin()
             self.cur.arraysize = arraySize
-            print >>sys.stderr, "querySQL : %s, %s, %s " % (sql, varMap, comment)            
+            sys.stderr.write("querySQL : %s, %s, %s \n" % (sql, varMap, comment))
             if varMap == None:
                 ret = self.cur.execute(sql+comment)
             else:
@@ -59,4 +59,3 @@ class NewDBProxy(DBProxy):
                 tmpDict[columnNames[i]] = row[i]
             resDictArray.append(tmpDict)
         return resDictArray
-

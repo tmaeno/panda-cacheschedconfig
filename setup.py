@@ -3,14 +3,12 @@
 # Setup prog for cacheschedconfig
 #
 #
-release_version='1.3.7'
+release_version='1.3.8'
 
-import re
-import sys
-import commands
-from distutils.core import setup
-from distutils.command.install import install as install_org
-from distutils.command.install_data import install_data as install_data_org
+import os
+import stat
+import glob
+from setuptools import setup
 
         
 # setup for distutils
@@ -44,3 +42,11 @@ setup(
                  ),
                 ]
 )
+
+
+for f in glob.glob(os.path.join('/opt/cacheschedconfig/bin','*.sh')):
+    st = os.stat(f)
+    try:
+        os.chmod(f, st.st_mode|stat.S_IEXEC|stat.S_IXUSR|stat.S_IXGRP|stat.S_IXOTH)
+    except Exception:
+        pass
