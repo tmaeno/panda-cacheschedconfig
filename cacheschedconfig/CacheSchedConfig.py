@@ -5,6 +5,7 @@
 # DB Connection
 from cacheschedconfig.OraDBProxy2 import NewDBProxy as DBProxy
 from copy import deepcopy
+from pandaserver.config import panda_config
 
 import sys
 import os
@@ -53,22 +54,21 @@ class cacheSchedConfig:
     def getQueueData(self, site = None, queue = None):
         # Dump schedconfig in a single query (it's not very big)
         varDict = {}
-        sql = 'SELECT * from ATLAS_PANDAMETA.SCHEDCONFIG'
+        sql = 'SELECT panda_queue, data from {0}.SCHEDCONFIG_JSON'.format(panda_config.schemaPANDA)
         if site:
-            sql += ' where site=:site'
+            sql += ' where panda_queue=:site'
             varDict[':site'] = site
-            c, r = self.proxyS.queryColumnSQL(sql, varDict)
+            self.queueData = self.proxyS.queryColumnSQL(sql, varDict)
         elif queue:
-            sql += ' where nickname=:queue'
+            sql += ' where panda_queue=:queue'
             varDict[':queue'] = queue
-            c, r = self.proxyS.queryColumnSQL(sql, varDict)
+            self.queueData = self.proxyS.queryColumnSQL(sql, varDict)
         else:
-            c, r = self.proxyS.queryColumnSQL(sql)
-        self.queueData = self.proxyS.mapRowsToDictionary(c, r)
+            self.queueData = self.proxyS.queryColumnSQL(sql)
         
         
     def getCloudStatus(self):
-        sql = 'SELECT name, status from ATLAS_PANDAMETA.CLOUDCONFIG'
+        sql = 'SELECT name, status from {0}.CLOUDCONFIG'.format(panda_config.schemaMETA)
         r = self.proxyS.querySQL(sql)
         self.cloudStatus = dict()
         for row in r:
@@ -81,9 +81,9 @@ class cacheSchedConfig:
             try:
                 if self.cloudStatus[queue['cloud']] == 'offline':
                     queue['status'] = 'offline'
-                    print >>sys.stderr, 'Queue %s forced offline (cloud = %s is offline)' % (queue['nickname'], queue['cloud'])
+                    print ('Queue %s forced offline (cloud = %s is offline)' % (queue['nickname'], queue['cloud']))
             except KeyError:
-                print >>sys.stderr, 'No valid cloud status for queue %s (cloud = %s)' % (queue['nickname'], queue['cloud'])
+                print ('No valid cloud status for queue %s (cloud = %s)' % (queue['nickname'], queue['cloud']))
 
 
     def dumpSingleQueue(self, queueDict, dest = '/tmp', outputSet = 'all', format = 'txt'):
@@ -99,7 +99,7 @@ class cacheSchedConfig:
             if format == 'pilot':
                 outputStr = ''
                 for outputField in outputFields:
-                    if queueDict[outputField]:
+                    if outputField in queueDict and queueDict[outputField]:
                         outputStr += outputField + "=" + str(queueDict[outputField]) + "|"
                     else:
                         outputStr += outputField + "=|"
@@ -107,7 +107,11 @@ class cacheSchedConfig:
             if format == 'json':
                 dumpMe = {}
                 for outputField in outputFields:
-                    dumpMe[outputField] = queueDict[outputField]
+                    if outputField in queueDict:
+                        val = queueDict[outputField]
+                    else:
+                        val = ''
+                    dumpMe[outputField] = val
                 json.dump(self.queueDictPythonise(dumpMe), output, sort_keys=True, indent=4)
             output.close()
 

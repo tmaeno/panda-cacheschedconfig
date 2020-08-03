@@ -1,5 +1,6 @@
 from taskbuffer.OraDBProxy import DBProxy
 import sys
+import json
 
 class NewDBProxy(DBProxy):
     '''
@@ -20,15 +21,12 @@ class NewDBProxy(DBProxy):
                 ret = self.cur.execute(sql+comment,varMap)
             res = self.cur.fetchall()
             self.conn.commit()
-            # Iterate over the result arrays
-            #print self.cur.description
-            columnNames = []
-            for descriptionTuple in self.cur.description:
-                if lowerCase:
-                    columnNames.append(descriptionTuple[0].lower())
-                else:
-                    columnNames.append(descriptionTuple[0])
-            return columnNames, res
+            retList = []
+            for panda_queue, data, in res:
+                dictData = json.loads(data.read())
+                dictData['siteid'] = panda_queue
+                retList.append(dictData)
+            return retList
         except:
             raise
 

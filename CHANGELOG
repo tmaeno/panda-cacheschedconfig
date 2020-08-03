@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+v1.3.9 2020-08-03
+ * schedconfig_json
+
 v1.3.8 2020-02-21
  * python 3
 

@@ -3,7 +3,7 @@
 # Setup prog for cacheschedconfig
 #
 #
-release_version='1.3.8'
+release_version='1.3.9'
 
 import os
 import stat
