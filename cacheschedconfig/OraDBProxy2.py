@@ -23,7 +23,10 @@ class NewDBProxy(DBProxy):
             self.conn.commit()
             retList = []
             for panda_queue, data, in res:
-                dictData = json.loads(data.read())
+                if isinstance(data, str):
+                    dictData = json.loads(data)
+                else:
+                    dictData = json.loads(data.read())
                 dictData['siteid'] = panda_queue
                 retList.append(dictData)
             return retList

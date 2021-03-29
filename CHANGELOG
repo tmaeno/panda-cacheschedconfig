@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+v1.3.10 2021-03-29
+ * added pilot_gdp_config
+
 v1.3.9 2020-08-03
  * schedconfig_json
 

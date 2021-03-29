@@ -139,7 +139,8 @@ class cacheSchedConfig:
             structDict = queueDict
 
         if 'releases' in structDict and structDict['releases'] != None:
-            structDict['releases'] = structDict['releases'].split('|')
+            if isinstance(structDict['releases'], str):
+                structDict['releases'] = structDict['releases'].split('|')
         # TODO - Change this into Ricardo's ISO dateTime in UTC?
         for timeKey in 'lastmod', 'tspace':
             if timeKey in structDict:
@@ -162,3 +163,20 @@ class cacheSchedConfig:
                 dumpMe[queueDict['nickname']][k] = v
             dumpMe[queueDict['nickname']] = self.queueDictPythonise(dumpMe[queueDict['nickname']])
         json.dump(dumpMe, output, sort_keys=True, indent=4)
+        self.dump_pilot_gdp_config(dest)
+
+
+    def dump_pilot_gdp_config(self, dest='/tmp'):
+        app = 'pilot'
+        dump_me = {}
+        sql = 'SELECT key, component, vo from {}.config '.format(panda_config.schemaPANDA)
+        r = self.proxyS.querySQL(sql)
+        for key, component, vo in r:
+            dump_me.setdefault(vo, {})
+            value = self.proxyS.getConfigValue(component, key, app, vo)
+            dump_me[vo][key] = value
+        # dump
+        print("pilot GDP config: {}".format(str(dump_me)))
+        with open(os.path.join(dest, 'pilot_gdp_config.json'), 'w') as f:
+            json.dump(dump_me, f, sort_keys=True, indent=4)
+
