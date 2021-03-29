@@ -169,8 +169,8 @@ class cacheSchedConfig:
     def dump_pilot_gdp_config(self, dest='/tmp'):
         app = 'pilot'
         dump_me = {}
-        sql = 'SELECT key, component, vo from {}.config '.format(panda_config.schemaPANDA)
-        r = self.proxyS.querySQL(sql)
+        sql = 'SELECT key, component, vo from {}.config where app=:app'.format(panda_config.schemaPANDA)
+        r = self.proxyS.querySQL(sql, {':app': app})
         for key, component, vo in r:
             dump_me.setdefault(vo, {})
             value = self.proxyS.getConfigValue(component, key, app, vo)
