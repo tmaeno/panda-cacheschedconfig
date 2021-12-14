@@ -13,8 +13,8 @@ gettarball_cvmfs()
     # function to get the pilot tarball from cvmfs
 
     # copy the latest tarballs
-    cp /cvmfs/atlas.cern.ch/repo/sw/PandaPilot/tar/pilotcode-PICARD.tar.gz $CACHEPATH/.
     cp /cvmfs/atlas.cern.ch/repo/sw/PandaPilot/tar/pilot2.tar.gz $CACHEPATH/.
+    cp /cvmfs/atlas.cern.ch/repo/sw/PandaPilot/tar/pilot3.tar.gz $CACHEPATH/.
 }
 
 # ----------------------------------------------------------------------
@@ -46,9 +46,3 @@ else
 fi
 
 # ----------------------------------------------------------------------
-
-# Download test builds of the pilot code...
-cd $CACHEPATH
-for pilot in pilotcode-rc.tar.gz pilot2-dev.tar.gz; do
-    curl --connect-timeout 20 --max-time 120 -s -S -O http://project-atlas-gmsb.web.cern.ch/project-atlas-gmsb/${pilot}
-done
