@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+v1.3.11 2021-12-14
+ * pilot 3 updates, some cleanup of legacy code
+
 v1.3.10 2021-03-29
  * added pilot_gdp_config
 
