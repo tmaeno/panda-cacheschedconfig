@@ -25,6 +25,8 @@ class NewDBProxy(DBProxy):
             for panda_queue, data, in res:
                 if isinstance(data, str):
                     dictData = json.loads(data)
+                elif isinstance(data, dict):
+                    dictData = data
                 else:
                     dictData = json.loads(data.read())
                 dictData['siteid'] = panda_queue
