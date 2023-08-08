@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "panda-cacheschedconfig"
+dynamic = ["version"]
+description = "SchedConfig Cache Package"
+readme = "README.md"
+license = "Apache-2.0"
+authors = [
+    { name = "PanDA Team", email = "panda-support@cern.ch" },
+]
+
+
+[project.urls]
+Homepage = "https://github.com/PanDAWMS/panda-harvester/wiki"
+
+[tool.hatch.version]
+path = "cacheschedconfig/panda_pkg_info.py"
+pattern = "release_version = \"(?P<version>[^\"]+)\""
+
+[tool.hatch.build]
+directory = "dist"
+
+[tool.hatch.build.targets.wheel]
+packages = ["cacheschedconfig"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"cron" = "/etc/cron.d"
+"bin" = "/opt/cacheschedconfig/bin"
+"etc" = "/opt/cacheschedconfig/etc/sysconfig"
+
+
+[tool.hatch.build.targets.wheel.hooks.custom]
+path = "package/hatch_build.py"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    ".github",
+    ".idea",
+]

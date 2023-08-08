@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+v1.4.0 2023-08-08
+ * added pyproject.toml
+
 v1.3.11 2021-12-14
  * pilot 3 updates, some cleanup of legacy code
 
