@@ -27,9 +27,9 @@ directory = "dist"
 packages = ["cacheschedconfig"]
 
 [tool.hatch.build.targets.wheel.shared-data]
-"cron" = "/etc/cron.d"
-"bin" = "/opt/cacheschedconfig/bin"
-"etc" = "/opt/cacheschedconfig/etc/sysconfig"
+"cron" = "etc/cron.d"
+"bin" = "bin"
+"etc" = "etc/sysconfig"
 
 
 [tool.hatch.build.targets.wheel.hooks.custom]
