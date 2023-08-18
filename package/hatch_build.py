@@ -45,6 +45,8 @@ class CustomBuildHook(BuildHookInterface):
                 os.symlink(src, dst)
             # cron
             directory = '/etc/cron.d'
+            if not os.path.exists(directory):
+                os.makedirs(directory)
             for f in glob.glob("./cron/*"):
                 f_base = os.path.basename(f)
                 dst = os.path.join(directory, f_base)
