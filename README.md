@@ -41,8 +41,8 @@ Please see the INSTALLATION file for advice on deployment at CERN.
 Installation
 --------
 
-To build this package from source do
-
-git clone panda-cacheschedconfig
-cd panda-cacheschedconfig
-rm -rf dist; python setup.py sdist; pip install dist/p*.tar.gz --upgrade --force-reinstall --no-deps; pip install dist/p*.tar.gz --upgrade
+To install this package from source:
+```
+pip install "git+https://github.com/PanDAWMS/panda-cacheschedconfig.git"
+```
+Note that you need root privilege to install this package.
