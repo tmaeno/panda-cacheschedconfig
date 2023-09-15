@@ -9,6 +9,9 @@ fi
 # Get panda server environment
 source /etc/sysconfig/panda_server
 
+# explicitly set as an env variable since some AL9 cron doesn't give it to python
+export PYTHONPATH
+
 if [ ! -d $CACHEPATH ]; then
     mkdir -p $CACHEPATH
 fi
