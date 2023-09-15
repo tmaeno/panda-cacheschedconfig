@@ -7,7 +7,7 @@ if [ -f /opt/cacheschedconfig/etc/sysconfig/cacheschedconfig-sysconfig ]; then
 fi
 
 # Get panda server environment
-source /opt/panda/etc/sysconfig/panda_server
+source /etc/sysconfig/panda_server
 
 if [ ! -d $CACHEPATH ]; then
     mkdir -p $CACHEPATH
