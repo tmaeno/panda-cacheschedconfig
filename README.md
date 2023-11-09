@@ -1,3 +1,7 @@
+This package has been merged into PanDA server > daemons and is no longer used as a standalone package
+------------------------------------------------------------------------------------------------------
+
+
 cachescedconfig
 ---------------
 
