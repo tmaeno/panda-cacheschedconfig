@@ -20,7 +20,6 @@ class cacheSchedConfig:
     def __init__(self):
         self.proxyS = None
         self.queueData = None
-        self.cloudStatus = None
         # Define this here, but could be more flexible...
         self.queueDataFields = {
                                 # Note that json dumps always use sort_keys=True; for pilot format
@@ -47,7 +46,6 @@ class cacheSchedConfig:
             
     def getStucturedQueueStatus(self):
         self.getQueueData()
-        self.getCloudStatus()
         self.maskQueuesByCloud()
         
 
@@ -65,25 +63,6 @@ class cacheSchedConfig:
             self.queueData = self.proxyS.queryColumnSQL(sql, varDict)
         else:
             self.queueData = self.proxyS.queryColumnSQL(sql)
-        
-        
-    def getCloudStatus(self):
-        sql = 'SELECT name, status from {0}.CLOUDCONFIG'.format(panda_config.schemaMETA)
-        r = self.proxyS.querySQL(sql)
-        self.cloudStatus = dict()
-        for row in r:
-            self.cloudStatus[row[0]] = row[1]
-
-            
-    def maskQueuesByCloud(self):
-        '''Force queue status to offline if the cloud is offline'''
-        for queue in self.queueData:
-            try:
-                if self.cloudStatus[queue['cloud']] == 'offline':
-                    queue['status'] = 'offline'
-                    print ('Queue %s forced offline (cloud = %s is offline)' % (queue['nickname'], queue['cloud']))
-            except KeyError:
-                print ('No valid cloud status for queue %s (cloud = %s)' % (queue['nickname'], queue['cloud']))
 
 
     def dumpSingleQueue(self, queueDict, dest = '/tmp', outputSet = 'all', format = 'txt'):
