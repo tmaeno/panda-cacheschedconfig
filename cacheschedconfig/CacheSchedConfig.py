@@ -46,7 +46,6 @@ class cacheSchedConfig:
             
     def getStucturedQueueStatus(self):
         self.getQueueData()
-        self.maskQueuesByCloud()
         
 
     def getQueueData(self, site = None, queue = None):
